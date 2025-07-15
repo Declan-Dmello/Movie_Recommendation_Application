@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+</head>
+<body>
+<h1>Movies</h1>
+<ul>
+    <th:block th:each="movie : ${movies}">
+        <li>
+            <a th:href="@{/recommend/{id}(id=${movie.id})}">
+                <span th:text="${movie.originalTitle}"></span> - <span th:text="${movie.genres}"></span>
+            </a>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>

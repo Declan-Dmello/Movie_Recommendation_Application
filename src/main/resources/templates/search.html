@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BingeBox | Search for Movies</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #121212, #1c1c1c);
+            color: #ecf0f1;
+        }
+
+        .search-container {
+            text-align: center;
+            background: rgba(30, 30, 30, 0.95);
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Titles and Subtitles */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #e74c3c;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: #bdc3c7;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #bdc3c7;
+        }
+
+        form {
+            margin-top: 15px;
+        }
+
+        /* Search Input */
+        input[type="text"] {
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            color: #ffffff;
+            background: rgba(50, 50, 50, 0.8);
+            border: 1px solid #444;
+            border-radius: 5px;
+            outline: none;
+            transition: border 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]::placeholder {
+            color: #7f8c8d;
+        }
+
+        input[type="text"]:focus {
+            border-color: #e74c3c;
+            box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+        }
+
+        /* Search Button */
+        button {
+            font-size: 1rem;
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #e74c3c;
+            color: #ffffff;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background: #c0392b;
+            transform: scale(1.02);
+        }
+
+        /* Movie Recommendations Section */
+        .recommendations-header {
+            font-size: 1.2rem;
+            margin-top: 30px;
+            color: #bdc3c7;
+            border-top: 1px solid #444;
+            padding-top: 15px;
+        }
+
+        .movie-recommendations {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .movie-recommendation-item {
+            background: rgba(50, 50, 50, 0.8);
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            color: #ecf0f1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .movie-recommendation-item:hover {
+            background: rgba(60, 60, 60, 0.9);
+            transform: translateY(-2px);
+        }
+
+        /* Footer Section */
+        .footer {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 576px) {
+            .search-container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="search-container">
+    <!-- Title -->
+    <h1>Welcome to BingeBox</h1>
+    <h2>Find Your Next Movie to Binge</h2>
+    <p>Type a movie title below and explore recommendations tailored specifically for you!</p>
+
+    <!-- Search Form -->
+    <form action="/recommend" method="get">
+        <input type="text" name="query" placeholder="Enter a movie title..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Movie Recommendations Section -->
+    <div class="recommendations-header">Recently Searched Movies:</div>
+    <div class="movie-recommendations">
+        <div class="movie-recommendation-item">The Shawshank Redemption</div>
+        <div class="movie-recommendation-item">Inception</div>
+        <div class="movie-recommendation-item">Interstellar</div>
+        <div class="movie-recommendation-item">The Dark Knight</div>
+    </div>
+
+    <!-- Error Message for Dynamic Display -->
+    <div th:if="${notFound}" style="margin-top: 15px; background: #e74c3c; padding: 10px; border-radius: 5px; color: #fff;">
+        Movie not found. Please try again!
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 BingeBox | Your Personal Movie Companion</p>
+    </div>
+</div>
+</body>
+</html>

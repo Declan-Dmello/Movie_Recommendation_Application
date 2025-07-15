@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BingeBox | Movie Recommendations</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #121212, #1c1c1c);
+            margin: 0;
+            padding: 20px;
+            color: #ecf0f1;
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #444;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            color: #e74c3c;
+        }
+
+        /* Selected Movie Section */
+        .selected-movie {
+            display: flex;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #292929;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+        }
+        .movie-poster {
+            flex: 0 0 200px;
+            margin-right: 30px;
+        }
+        .movie-details {
+            flex: 1;
+        }
+        .movie-poster img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Recommendation Grid */
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Recommendation Card Styling */
+        .recommendation-card {
+            background-color: #2b2b2b;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, background-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            background-color: #333;
+        }
+        .card-poster {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+        .card-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .no-poster {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #444;
+            color: #bdc3c7;
+            font-style: italic;
+        }
+
+        /* Card Content */
+        .card-content {
+            padding: 15px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            color: #ecf0f1;
+        }
+        .movie-title {
+            font-size: 1.4rem;
+            margin: 0 0 10px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .info-item {
+            margin-bottom: 10px;
+            color: #bdc3c7;
+        }
+        .info-label {
+            color: #c0392b;
+            font-weight: bold;
+        }
+
+        /* Rating Badge */
+        .rating {
+            display: inline-block;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .rating-high {
+            background-color: #27ae60;
+        }
+        .rating-medium {
+            background-color: #f39c12;
+        }
+        .rating-low {
+            background-color: #e74c3c;
+        }
+
+        /* Buttons */
+        .search-again {
+            display: inline-block;
+            text-align: center;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 15px;
+        }
+        .search-again:hover {
+            background-color: #c0392b;
+            transform: scale(1.02);
+        }
+
+        /* Text Alignment for No Recommendations */
+        .no-recommendations {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #292929;
+            border-radius: 10px;
+            border: 2px dashed #444;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <h1>Movie Recommendations</h1>
+    </div>
+
+    <!-- Selected Movie Section -->
+    <h2 style="color: #ecf0f1;">Selected Movie</h2>
+    <div class="selected-movie">
+        <div class="movie-poster">
+            <img th:if="${selectedMovie.posterPath != null && !selectedMovie.posterPath.isEmpty()}"
+                 th:src="${selectedMovie.posterPath}"
+                 alt="Movie Poster">
+            <div th:unless="${selectedMovie.posterPath != null && !selectedMovie.posterPath.isEmpty()}"
+                 class="no-poster">No poster available</div>
+        </div>
+        <div class="movie-details">
+            <h2 class="movie-title" th:text="${selectedMovie.originalTitle}"></h2>
+            <div class="info-item">
+                <span class="info-label">Genres:</span>
+                <span th:text="${selectedMovie.genres}"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Release Date:</span>
+                <span th:text="${#strings.replace(selectedMovie.releaseDate, '.0', '')}"></span>
+
+            </div>
+            <div class="info-item">
+                <span class="info-label">Director:</span>
+                <span th:text="${selectedMovie.director}"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Actor(s):</span>
+                <span th:text="${selectedMovie.actor}"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Rating:</span>
+                <span class="rating"
+                      th:classappend="${selectedMovie.voteAverage >= 4.0 ? 'rating-high' :
+                                       (selectedMovie.voteAverage >= 3.0 ? 'rating-medium' : 'rating-low')}"
+                      th:text="${#numbers.formatDecimal(selectedMovie.voteAverage, 1, 1) + '/5'}"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Overview:</span>
+                <p th:if="${selectedMovie.overview != null && !selectedMovie.overview.isEmpty()}"
+                   th:text="${selectedMovie.overview}"></p>
+                <p th:unless="${selectedMovie.overview != null && !selectedMovie.overview.isEmpty()}">
+                    No overview available.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommendations Section -->
+    <h2 style="color: #ecf0f1;">Recommended Movies</h2>
+    <div th:if="${recommendedMovies != null && !recommendedMovies.isEmpty()}" class="recommendation-grid">
+        <div th:each="movie : ${recommendedMovies}" class="recommendation-card">
+            <div class="card-poster">
+                <img th:if="${movie.posterPath != null && !movie.posterPath.isEmpty()}"
+                     th:src="${movie.posterPath}" alt="Movie Poster">
+                <div th:unless="${movie.posterPath != null && !movie.posterPath.isEmpty()}" class="no-poster">
+                    No poster available
+                </div>
+            </div>
+            <div class="card-content">
+                <h3 class="movie-title" th:text="${movie.originalTitle}"></h3>
+                <div class="info-item">
+                    <span class="info-label">Genres:</span>
+                    <span th:text="${movie.genres}"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Release Date:</span>
+                    <span th:text="${movie.releaseDate}"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Director:</span>
+                    <span th:text="${movie.director}"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Actor(s):</span>
+                    <span th:text="${movie.actor}"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Rating:</span>
+                    <span class="rating"
+                          th:classappend="${movie.voteAverage >= 4.0 ? 'rating-high' :
+                                           (movie.voteAverage >= 3.0 ? 'rating-medium' : 'rating-low')}"
+                          th:text="${#numbers.formatDecimal(movie.voteAverage, 1, 1) + '/5'}"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Overview:</span>
+                    <p th:if="${movie.overview != null && !movie.overview.isEmpty()}"
+                       th:text="${#strings.length(movie.overview) > 150 ? #strings.substring(movie.overview, 0, 150) + '...' : movie.overview}"></p>
+                    <p th:unless="${movie.overview != null && !movie.overview.isEmpty()}">No overview available.</p>
+                </div>
+                <a th:href="@{'/recommendations?movieId=' + ${movie.id}}" class="search-again">
+                    Get Recommendations for This Movie
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${recommendedMovies == null || recommendedMovies.isEmpty()}" class="no-recommendations">
+        <p>No recommendations available for this movie.</p>
+        <p>Try searching for a different movie.</p>
+    </div>
+
+    <a href="/search" class="search-again">Search Another Movie</a>
+</div>
+</body>
+</html>

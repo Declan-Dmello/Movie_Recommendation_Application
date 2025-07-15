@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BingeBox | Home</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #121212, #1c1c1c);
+            color: #ecf0f1;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background-color: #000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            color: #e74c3c;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        main h2 {
+            font-size: 2rem;
+            color: #f39c12;
+            margin-bottom: 25px;
+        }
+
+        main p {
+            font-size: 1rem;
+            color: #bdc3c7;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        /* Call to Action Button */
+        .btn-wrapper {
+            margin-top: 20px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #e74c3c;
+            color: #ffffff;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        /* Features Section */
+        .features {
+            margin-top: 50px;
+            padding: 30px 20px;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            color: #ecf0f1;
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .features h3 {
+            font-size: 1.8rem;
+            color: #f39c12;
+            margin-bottom: 25px;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #bdc3c7;
+            background: rgba(50, 50, 50, 0.8);
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .features-list li:hover {
+            background: rgba(60, 60, 60, 0.9);
+            transform: scale(1.02);
+        }
+
+        /* Footer Section */
+        footer {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #000;
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            margin: 0;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <h1>BingeBox</h1>
+</header>
+
+<!-- Main Section -->
+<main>
+    <!-- Hero Section -->
+    <h2>Your Personalized Movie Companion</h2>
+    <p>
+        Welcome to <strong>BingeBox</strong>, your trusted platform for finding new movies to watch!
+    </p>
+    <p>
+        Are you tired of endlessly scrolling through your streaming services? With BingeBox, you can instantly dive into
+        personalized movie recommendations tailored just for you. Whether you’re a fan of heart-pounding action, hilarious
+        comedies, or thought-provoking dramas, we’ve got something for every mood and taste.
+    </p>
+    <p>
+        Say goodbye to decision fatigue and let BingeBox guide you to your next favorite movie – quickly, easily, and
+        stress-free!
+    </p>
+
+    <div class="btn-wrapper">
+        <a href="/search">Start Your Search</a>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features">
+        <h3>What Makes BingeBox Different?</h3>
+        <ul class="features-list">
+            <li><strong>🎥 Personalized Movie Recommendations:</strong> Discover movies that perfectly match your taste and mood.</li>
+            <li><strong>🌟 Critically Acclaimed Films:</strong> Browse through top-rated movies loved by fans worldwide.</li>
+            <li><strong>💎 Find Hidden Gems:</strong> Unearth underrated classics and unconventional favorites.</li>
+            <li><strong>⚡ Save Time:</strong> No more endless scrolling — we recommend the best options instantly!</li>
+            <li><strong>🛠️ Easy to Use:</strong> A simple, intuitive interface designed to help you find movies in seconds.</li>
+        </ul>
+    </div>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <p>&copy; 2023 BingeBox | Your Ultimate Movie Companion</p>
+</footer>
+</body>
+</html>
